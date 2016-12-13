@@ -1,7 +1,7 @@
 box: node:4.2.6-slim
 dev:
   steps:
-    - npm-install
+   - npm-install
     - internal/watch:
         code: node app.js
         reload: true
@@ -22,6 +22,15 @@ build:
     - script:
         name: echo nodejs information
         code: |
+          echo "In the build phase --- whooop"
           echo "node version $(node -v) running"
           echo "npm version $(npm -v) running"
+ 
+deploy:
+    - steps
+      - internal/docker-push:
+        registry: https://registry.eu-gb.bluemix.net
+        repository: registry.eu-gb.bluemix.net/aie_containers/testcontainer1
+        username: bearer
+        password: $IBM_TOKEN
 
