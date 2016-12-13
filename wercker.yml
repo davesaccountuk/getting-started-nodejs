@@ -30,8 +30,8 @@ build:
 deploy:
   steps:
     - internal/docker-push:
-        registry: https://registry.ng.bluemix.net
-        repository: registry.eu-gb.bluemix.net/aie_containers
+        registry: https://registry.eu-gb.bluemix.net
+        repository: registry.eu-gb.bluemix.net/aie_containers/testcontainer2 
         tag: wibble
         username: bearer
         password: $IBM_TOKEN
