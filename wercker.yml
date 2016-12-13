@@ -1,7 +1,7 @@
 box: node:4.2.6-slim
 dev:
   steps:
-   - npm-install
+    - npm-install
     - internal/watch:
         code: node app.js
         reload: true
