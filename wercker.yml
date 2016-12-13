@@ -30,7 +30,7 @@ build:
 deploy:
   steps:
     - internal/docker-push:
-        registry: http://registry.ng.bluemix.net/
-        repository: registry.ng.bluemix.net/aie_containers/testcontainer 
+        registry: https://registry.ng.bluemix.net/
+        repository: https://registry.ng.bluemix.net/aie_containers/testcontainer 
         username: bearer
         password: $IBM_TOKEN
