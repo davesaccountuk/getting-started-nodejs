@@ -27,8 +27,8 @@ build:
           echo "npm version $(npm -v) running"
  
 deploy:
-    - steps
-      - internal/docker-push:
+  steps:
+    - internal/docker-push:
         registry: https://registry.eu-gb.bluemix.net
         repository: registry.eu-gb.bluemix.net/aie_containers/testcontainer1
         username: bearer
