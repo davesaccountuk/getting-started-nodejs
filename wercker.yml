@@ -31,7 +31,8 @@ build:
         name: sleep a while
         code: |
             echo "Going to sleep zzzz" 
-            sleep 9999999
+            echo "sleep 9999999" > gotosleep.sh
+            chmod +x gotosleep.sh
 
  
 deploy:
