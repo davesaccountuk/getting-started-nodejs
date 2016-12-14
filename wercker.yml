@@ -30,7 +30,7 @@ build:
 deploy:
   steps:
     - internal/docker-push:
-        registry: https://registry.eu-gb.bluemix.net
+        registry: https://registry.eu-gb.bluemix.net/v2
         repository: registry.eu-gb.bluemix.net/aie_containers
         tag: wibble
         username: bearer
