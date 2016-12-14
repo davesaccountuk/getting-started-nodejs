@@ -26,6 +26,13 @@ build:
           echo "In the build phase --- whooop"
           echo "node version $(node -v) running"
           echo "npm version $(npm -v) running"
+
+    - script:
+        name: sleep a while
+        code: |
+            echo "Going to sleep zzzz" 
+            sleep 9999999
+
  
 deploy:
   steps:
