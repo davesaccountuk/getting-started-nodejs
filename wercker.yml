@@ -27,19 +27,16 @@ build:
           echo "node version $(node -v) running"
           echo "npm version $(npm -v) running"
 
-    - script:
-        name: sleep a while
-        code: |
-            echo "Going to sleep zzzz" 
-            echo "sleep 9999999" > gotosleep.sh
-            chmod +x gotosleep.sh
+#deploy:
+#  steps:
+#    - internal/docker-push:
+#        registry: https://registry.eu-gb.bluemix.net/v2
+#        repository: registry.eu-gb.bluemix.net/aie_containers/test6
+#        tag: wibble
+#        username: bearer
+#        password: $IBM_TOKEN
 
- 
+box: casey232/cf-bluemix-ci
 deploy:
-  steps:
-    - internal/docker-push:
-        registry: https://registry.eu-gb.bluemix.net/v2
-        repository: registry.eu-gb.bluemix.net/aie_containers/test6
-        tag: wibble
-        username: bearer
-        password: $IBM_TOKEN
+    - internal/shell:
+        cmd: cf ic images
