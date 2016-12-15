@@ -27,19 +27,17 @@ build:
           echo "node version $(node -v) running"
           echo "npm version $(npm -v) running"
 
-#deploy:
-#  steps:
-#    - internal/docker-push:
-#        registry: https://registry.eu-gb.bluemix.net/v2
-#        repository: registry.eu-gb.bluemix.net/aie_containers/test6
-#        tag: wibble
-#        username: bearer
-#        password: $IBM_TOKEN
+push-to-bluemix:
+  steps:
+    - internal/docker-push:
+        registry: https://registry.eu-gb.bluemix.net/v2
+        repository: registry.eu-gb.bluemix.net/aie_containers/test6
+        tag: wibble
+        username: bearer
+        password: $IBM_TOKEN
 
 deploy:
     box: casey232/cf-bluemix-ci
     steps:
-      - script:
-          name: try and show images
-          code: cf ic images 
-    #- internal/shell:
+      - internal/shell:
+        cmd: cf ic images
