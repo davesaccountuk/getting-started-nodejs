@@ -40,8 +40,6 @@ dev:
     box: casey232/cf-bluemix-ci
     steps:
       - script:
-         name: test
-         code: |
-          echo "I can see environment var $WERCKER_BLUEMIX_USERNAME"
-          ls
+         name: Test Bluemix
+         code: ./bluemix.sh
           
