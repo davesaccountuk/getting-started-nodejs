@@ -31,7 +31,7 @@ push-to-bluemix:
   steps:
     - internal/docker-push:
         registry: https://registry.eu-gb.bluemix.net/v2
-        repository: registry.eu-gb.bluemix.net/aie_london/ANAMEHERE
+        repository: registry.eu-gb.bluemix.net/aie_london/anamehere
         username: bearer
         password: $IBM_TOKEN
 

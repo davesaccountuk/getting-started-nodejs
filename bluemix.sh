@@ -8,4 +8,4 @@ echo "List bluemix images";
 cf ic images
 
 echo "Start a bluemix container" 
-cf ic run -p 5000:5000 registry.eu-gb.bluemix.net/aie_london/ANAMEHERE node /pipeline/source/app.js
+cf ic run -p 5000:5000 registry.eu-gb.bluemix.net/aie_london/anamehere node /pipeline/source/app.js
