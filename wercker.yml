@@ -37,6 +37,9 @@ build:
 #        password: $IBM_TOKEN
 
 deploy:
-box: casey232/cf-bluemix-ci
-    - internal/shell:
-        cmd: cf ic images
+    box: casey232/cf-bluemix-ci
+    steps:
+      - script:
+          name: try and show images
+          code: cf ic images 
+    #- internal/shell:
