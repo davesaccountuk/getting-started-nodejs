@@ -40,4 +40,6 @@ deploy:
     box: casey232/cf-bluemix-ci
     steps:
       - internal/shell:
-        cmd: cf ic images
+        cmd: /bin/sh
+        code: |
+          ls
