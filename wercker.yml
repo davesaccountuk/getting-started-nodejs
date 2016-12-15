@@ -41,5 +41,5 @@ dev:
     steps:
       - script:
          name: Test Bluemix
-         code: ./bluemix.sh
+         code: chmod +x ./bluemix.sh && ./bluemix.sh
           
