@@ -1,11 +1,11 @@
 box: node:4.2.6-slim
 
-dev:
-  steps:
-    - npm-install
-    - internal/watch:
-        code: node app.js
-        reload: true
+#dev:
+#  steps:
+#    - npm-install
+#    - internal/watch:
+#        code: node app.js
+#        reload: true
 
 # Build definition
 build:
@@ -36,7 +36,7 @@ push-to-bluemix:
         username: bearer
         password: $IBM_TOKEN
 
-deploy:
+dev:
     box: casey232/cf-bluemix-ci
     steps:
       - internal/shell:
