@@ -6,3 +6,6 @@ cf ic init
 
 echo "List bluemix images";
 cf ic images
+
+echo "Start a bluemix container" 
+cf ic run -p 5000:5000 registry.eu-gb.bluemix.net/aie_london/crtest node /pipeline/source/app.js
