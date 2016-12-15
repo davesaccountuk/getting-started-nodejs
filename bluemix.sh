@@ -1,17 +1,40 @@
-echo "Logging in to bluemix CF";
-cf login -u $CF_USER -p $CF_PASS -o $CF_ORG -s $CF_SPACE -a $CF_API
+#!/bin/bash
+	
+IMAGE_NAME=${CF_CONTAINER}
+CF_OUTPUT=$(cf ic ps --format 'table {{.ID}}|{{.Image}}|{{.Ports}}' |grep ${IMAGE_NAME})
+RUNNING_CONTAINER=$(echo "$CF_OUTPUT" | grep $IMAGE_NAME | cut -d '|' -f 1)
 
-echo "Init Bluemix";
-cf ic init
+function running {
+	echo RUNNING - $1
+	if [[ -z $1 ]]; then
+		return 1
+	else
+		echo "Container ID=$2"
+		return 0
+	fi
+}
 
-echo "List bluemix images";
-cf ic images
+function reqip {
+	cf ic ip request -q $1
+}
 
-echo "Start a bluemix container" 
-CONTAINERID=$(cf ic run -p 5000:5000 registry.eu-gb.bluemix.net/aie_london/anamehere node /pipeline/source/app.js)
+function reprovision {
+	if [ -z "$3" ]; then
+		IP_ADDRESS=$(echo $1 | grep -oE '((1?[0-9][0-9]?|2[0-4][0-9]|25[0-5])\.){3}(1?[0-9][0-9]?|2[0-4][0-9]|25[0-5])')
+	else
+		IP_ADDRESS=$3	
+	fi
+	cf ic rm $2 --force
+	CONTAINERID=$(cf ic run -p 5000:5000 registry.eu-gb.bluemix.net/aie_london/anamehere node /pipeline/source/app.js)
+	cf ic ip bind $IP_ADDRESS $CONTAINERID
+	return 0
+}
 
-IP=$(cf ic ip request -q)
+running ${CF_OUTPUT} ${RUNNING_CONTAINER}
 
-cf ic ip bind $IP $CONTAINERID
-
-echo $IP
+if [[ "$?" != "0" ]]; then
+	# check if port exposed, if so request an ip, else return 0.
+	echo "We will do something here soon"
+else
+	reprovision ${CF_OUTPUT} ${RUNNING_CONTAINER} ${IP_ADDRESS}
+fi
