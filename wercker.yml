@@ -39,8 +39,9 @@ push-to-bluemix:
 dev:
     box: casey232/cf-bluemix-ci
     steps:
-      - internal/watch:
-        code: |
+      - script:
+         name: test
+         code: |
           echo "I can see environment var $WERCKER_BLUEMIX_USERNAME"
           ls
           
