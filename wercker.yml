@@ -36,7 +36,7 @@ build:
 #        username: bearer
 #        password: $IBM_TOKEN
 
-box: casey232/cf-bluemix-ci
 deploy:
+box: casey232/cf-bluemix-ci
     - internal/shell:
         cmd: cf ic images
