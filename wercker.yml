@@ -1,4 +1,5 @@
-box: node:4.2.6-slim
+#box: node:4.2.6-slim
+box: node
 
 #dev:
 #  steps:
