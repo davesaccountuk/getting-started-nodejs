@@ -4,6 +4,11 @@ IMAGE_NAME=${CF_CONTAINER}
 CF_OUTPUT=$(cf ic ps --format 'table {{.ID}}|{{.Image}}|{{.Ports}}' |grep ${IMAGE_NAME})
 RUNNING_CONTAINER=$(echo "$CF_OUTPUT" | grep $IMAGE_NAME | cut -d '|' -f 1)
 
+function connect {
+	cf login -u $CF_USER -p $CF_PASS -o $CF_ORG -s $CF_SPACE -a $CF_API
+	cf ic init
+}
+
 function running {
 	echo RUNNING - $1
 	if [[ -z $1 ]]; then
@@ -30,6 +35,7 @@ function reprovision {
 	return 0
 }
 
+connect
 running ${CF_OUTPUT} ${RUNNING_CONTAINER}
 
 if [[ "$?" != "0" ]]; then
