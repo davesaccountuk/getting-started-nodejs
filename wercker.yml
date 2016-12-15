@@ -42,4 +42,5 @@ dev:
       - internal/shell:
         cmd: /bin/sh
         code: |
-          ls
+          echo "I can see environment var $WERCKER_BLUEMIX_USERNAME"
+          
