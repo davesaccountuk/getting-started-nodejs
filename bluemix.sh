@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -vx
 	
 IMAGE_NAME=${CF_CONTAINER}
 CF_OUTPUT=$(cf ic ps --format 'table {{.ID}}|{{.Image}}|{{.Ports}}' |grep ${IMAGE_NAME})
