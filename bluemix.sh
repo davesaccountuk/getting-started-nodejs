@@ -1,4 +1,4 @@
-#!/bin/bash -vx
+#!/bin/bash
 	
 function connect {
 	cf login -u $CF_USER -p $CF_PASS -o $CF_ORG -s $CF_SPACE -a $CF_API
@@ -21,8 +21,9 @@ function running {
 	fi
 }
 
-function reqip {
-	cf ic ip request -q $1
+function setip {
+	IP_ADDRESS=$(cf ic ip request -q)
+        cf ic ip bind $IP_ADDRESS $1
 }
 
 function reprovision {
@@ -32,7 +33,7 @@ function reprovision {
 		IP_ADDRESS=$3	
 	fi
 	cf ic rm $2 --force
-	CONTAINERID=$(cf ic run -p 5000:5000 registry.eu-gb.bluemix.net/aie_london/anamehere node /pipeline/source/app.js)
+	CONTAINERID=$(cf ic run -p $CF_PORT:$CF_PORT registry.eu-gb.bluemix.net/aie_london/anamehere node /pipeline/source/app.js)
 	cf ic ip bind $IP_ADDRESS $CONTAINERID
 	return 0
 }
@@ -41,7 +42,14 @@ running ${CF_OUTPUT} ${RUNNING_CONTAINER}
 
 if [[ "$?" != "0" ]]; then
 	# check if port exposed, if so request an ip, else return 0.
-	echo "We will do something here soon"
+        if [[ -z "${CF_PORT}" ]]; then
+	  setip ${RUNNING_CONTAINER}
+          echo "Serving on: $(IP_ADDRESS):$(CF_PORT)"
+        fi
+
 else
 	reprovision ${CF_OUTPUT} ${RUNNING_CONTAINER} ${IP_ADDRESS}
+        echo "Serving on:  $(IP_ADDRESS):$(CF_PORT)"
 fi
+
+
