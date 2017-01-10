@@ -10,6 +10,7 @@ box: node
 #a comment
 
 # Build definition
+
 build:
   # The steps that will be executed on build
   steps:
@@ -19,7 +20,6 @@ build:
     - npm-install
     # A step that executes `npm test` command
     - npm-test
-
     # A custom script step, name value is used in the UI
     # and the code value contains the command that get executed
     - script:
@@ -31,11 +31,24 @@ build:
 
 push-to-bluemix:
   steps:
+    script:
+    name: Initialize jq and cf
+    code: |
+      cd /
+        wget -O cf.tgz https://cli.run.pivotal.io/stable?release=linux64-binary&source=github && tar -xvf cf.tgz && rm cf.tgz
+        wget -O jq http://stedolan.github.io/jq/download/linux64/jq
+        chmod +x cf jq
+        cf login -a https://api.ng.bluemix.net -u $IBM_EMAIL -p $IBM_PASSWORD
+        BASETOKEN=$(jq -r '.AccessToken' config.json | cut -d ' ' -f 2)
+        SPACE=$(jq -r '.OrganizationFields.Guid' config.json)
+        TOKEN="$BASETOKEN|$SPACE"
     - internal/docker-push:
         registry: https://registry.eu-gb.bluemix.net/v2
         repository: registry.eu-gb.bluemix.net/aie_london/anamehere
         username: bearer
-        password: $IBM_TOKEN
+        password: $TOKEN
+        ports: "5000"
+        cmd: /bin/bash -c "cd /pipeline/source && python app.py"
 
 dev:
     box: casey232/cf-bluemix-ci
