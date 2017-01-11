@@ -47,13 +47,14 @@ push-to-bluemix:
         repository: registry.eu-gb.bluemix.net/aie_london/anamehere
         username: bearer
         password: $TOKEN
-        ports: "5000"
-        cmd: /bin/bash -c "cd /pipeline/source && python app.py"
+        ports: $CF_PORT 
+        #cmd: /bin/bash -c "cd /pipeline/source && python app.py"
+        cmd: $LAUNCH_CMD
 
 dev:
     box: casey232/cf-bluemix-ci
-    steps:
-      - script:
-         name: Test Bluemix
-         code: chmod +x ./bluemix.sh && ./bluemix.sh
+#    steps:
+#      - script:
+#         name: Test Bluemix
+#         code: chmod +x ./bluemix.sh && ./bluemix.sh
           
