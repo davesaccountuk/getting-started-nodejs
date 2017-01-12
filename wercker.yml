@@ -35,7 +35,7 @@ push-to-bluemix:
         name: Initialize jq and cf
         code: |
           cd /
-          wget -O cf.tgz https://cli.run.pivotal.io/stable?release=linux64-binary&source=github && tar -xvf cf.tgz && rm cf.tgz
+          wget -O cf.tgz https://cli.run.pivotal.io/stable?release=linux64-binary && tar -xvf cf.tgz && rm cf.tgz
           wget -O jq http://stedolan.github.io/jq/download/linux64/jq
           chmod +x cf jq
           cf login -a $CF_API -u $CF_USER -p $CF_PASS -o $CF_ORG -s $CF_SPACE
