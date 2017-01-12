@@ -55,8 +55,8 @@ push-to-bluemix:
 
 dev:
     box: casey232/cf-bluemix-ci
-#    steps:
-#      - script:
-#         name: Test Bluemix
-#         code: chmod +x ./bluemix.sh && ./bluemix.sh
+    steps:
+      - script:
+         name: Test Bluemix
+         code: chmod +x ./bluemix.sh && ./bluemix.sh
           
