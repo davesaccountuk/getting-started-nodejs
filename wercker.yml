@@ -41,7 +41,7 @@ push-to-bluemix:
         cf login -a $CF_API -u $CF_USER -p $CF_PASS -o $CF_ORG -s $CF_SPACE
         BASETOKEN=$(jq -r '.AccessToken' config.json | cut -d ' ' -f 2)
         SPACE=$(jq -r '.OrganizationFields.GUID' config.json)
-        TOKEN="$BASETOKEN|$SPACE"
+#        TOKEN="$BASETOKEN|$SPACE"
     - internal/docker-push:
         registry: https://registry.eu-gb.bluemix.net/v2
         repository: registry.eu-gb.bluemix.net/aie_london/$CONTAINER_NAME
