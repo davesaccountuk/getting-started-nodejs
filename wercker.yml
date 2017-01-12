@@ -38,13 +38,13 @@ push-to-bluemix:
         wget -O cf.tgz https://cli.run.pivotal.io/stable?release=linux64-binary&source=github && tar -xvf cf.tgz && rm cf.tgz
         wget -O jq http://stedolan.github.io/jq/download/linux64/jq
         chmod +x cf jq
-        cf login -a https://api.ng.bluemix.net -u $IBM_EMAIL -p $IBM_PASSWORD
-        BASETOKEN=$(jq -r '.AccessToken' config.json | cut -d ' ' -f 2)
-        SPACE=$(jq -r '.OrganizationFields.Guid' config.json)
+        cf login -a $CF_API -u $CF_USER -p $CF_PASS -o $CF_ORG -s $CF_SPACE
+        BASETOKEN=$(jq -r '.AccessToken' ~/.cf/config.json | cut -d ' ' -f 2)
+        SPACE=$(jq -r '.OrganizationFields.GUID' ~/.cf/config.json)
         TOKEN="$BASETOKEN|$SPACE"
     - internal/docker-push:
         registry: https://registry.eu-gb.bluemix.net/v2
-        repository: registry.eu-gb.bluemix.net/aie_london/anamehere
+        repository: registry.eu-gb.bluemix.net/aie_london/$CONTAINER_NAME
         username: bearer
         password: $TOKEN
         ports: $CF_PORT 
