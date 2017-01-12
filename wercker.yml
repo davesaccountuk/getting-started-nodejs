@@ -38,6 +38,7 @@ push-to-bluemix:
           wget -O cf.tgz https://cli.run.pivotal.io/stable?release=linux64-binary && tar -xvf cf.tgz && rm cf.tgz
           wget -O jq http://stedolan.github.io/jq/download/linux64/jq
           chmod +x cf jq
+          set -x
           ./cf login -a $CF_API -u $CF_USER -p $CF_PASS -o $CF_ORG -s $CF_SPACE
           BASETOKEN=$(./jq -r '.AccessToken' config.json | cut -d ' ' -f 2)
           SPACE=$(./jq -r '.OrganizationFields.GUID' config.json)
