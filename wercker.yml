@@ -50,7 +50,7 @@ push-to-bluemix:
         password: $TOKEN
         ports: $CF_PORT 
         #cmd: /bin/bash -c "cd /pipeline/source && python app.py"
-        cmd: $LAUNCH_CMD
+       # cmd: $LAUNCH_CMD
 
 dev:
     box: casey232/cf-bluemix-ci
