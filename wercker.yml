@@ -40,8 +40,8 @@ push-to-bluemix:
           chmod +x cf jq
           set -x
           ./cf login -a $CF_API -u $CF_USER -p $CF_PASS -o $CF_ORG -s $CF_SPACE
-          BASETOKEN=$(./jq -r '.AccessToken' config.json | cut -d ' ' -f 2)
-          SPACE=$(./jq -r '.OrganizationFields.GUID' config.json)
+          BASETOKEN=$(./jq -r '.AccessToken' ~/.cf/config.json | cut -d ' ' -f 2)
+          SPACE=$(./jq -r '.OrganizationFields.GUID' ~/.cf/config.json)
           TOKEN="$BASETOKEN|$SPACE"
           echo $TOKEN 
     - internal/docker-push:
