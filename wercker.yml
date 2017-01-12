@@ -29,19 +29,19 @@ build:
           echo "node version $(node -v) running"
           echo "npm version $(npm -v) running"
 
-#push-to-bluemix:
-  #steps:
-    #script:
-    #name: Initialize jq and cf
-   # code: |
-   #   cd /
-   #     wget -O cf.tgz https://cli.run.pivotal.io/stable?release=linux64-binary&source=github && tar -xvf cf.tgz && rm cf.tgz
-  #      wget -O jq http://stedolan.github.io/jq/download/linux64/jq
- #       chmod +x cf jq
- #       cf login -a $CF_API -u $CF_USER -p $CF_PASS -o $CF_ORG -s $CF_SPACE
- #       BASETOKEN=$(jq -r '.AccessToken' config.json | cut -d ' ' -f 2)
- #       SPACE=$(jq -r '.OrganizationFields.GUID' config.json)
-#        TOKEN="$BASETOKEN|$SPACE"
+push-to-bluemix:
+  steps:
+    - script:
+        name: Initialize jq and cf
+        code: |
+          cd /
+          wget -O cf.tgz https://cli.run.pivotal.io/stable?release=linux64-binary&source=github && tar -xvf cf.tgz && rm cf.tgz
+          wget -O jq http://stedolan.github.io/jq/download/linux64/jq
+          chmod +x cf jq
+          cf login -a $CF_API -u $CF_USER -p $CF_PASS -o $CF_ORG -s $CF_SPACE
+          BASETOKEN=$(jq -r '.AccessToken' config.json | cut -d ' ' -f 2)
+          SPACE=$(jq -r '.OrganizationFields.GUID' config.json)
+          TOKEN="$BASETOKEN|$SPACE"
     - internal/docker-push:
         registry: https://registry.eu-gb.bluemix.net/v2
         repository: registry.eu-gb.bluemix.net/aie_london/$CONTAINER_NAME
