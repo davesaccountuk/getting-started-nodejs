@@ -59,4 +59,4 @@ dev:
       - script:
          name: Test Bluemix
          code: /bluemix.sh
-         setMessage "This is a test message"
+         setMessage: "This is a test message"
